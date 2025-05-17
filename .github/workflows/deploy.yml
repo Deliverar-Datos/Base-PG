@@ -25,7 +25,11 @@ jobs:
     - name: Configure Alembic Environment
       run: |
         cd alembic
-        echo "sqlalchemy.url = postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT}}/${{ secrets.DATABASE_NAME }}" > alembic.ini
+         cat > alembic.ini <<EOL
+        [alembic]
+        sqlalchemy.url = postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT}}/${{ secrets.DATABASE_NAME }}
+        script_location = .
+        EOL
 
     - name: Apply Alembic Migrations
       run: |
