@@ -29,35 +29,7 @@ jobs:
         echo "DATABASE_HOST=${{ secrets.DATABASE_HOST }}" >> $GITHUB_ENV
         echo "DATABASE_PORT=${{ secrets.DATABASE_PORT }}" >> $GITHUB_ENV
         echo "DATABASE_NAME=${{ secrets.DATABASE_NAME }}" >> $GITHUB_ENV
-        
-    - name: Configure Alembic Environment
-      run: |
-        cd alembic
-        echo "[alembic]" >> alembic.ini
-        echo "sqlalchemy.url = postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }}" >> alembic.ini
-        echo "script_location = ." >> alembic.ini
-        echo "" >> alembic.ini
-        echo "[loggers]" >> alembic.ini
-        echo "keys=root" >> alembic.ini
-        echo "" >> alembic.ini
-        echo "[handlers]" >> alembic.ini
-        echo "keys=console" >> alembic.ini
-        echo "" >> alembic.ini
-        echo "[formatters]" >> alembic.ini
-        echo "keys=generic" >> alembic.ini
-        echo "" >> alembic.ini
-        echo "[logger_root]" >> alembic.ini
-        echo "level=INFO" >> alembic.ini
-        echo "handlers=console" >> alembic.ini
-        echo "" >> alembic.ini
-        echo "[handler_console]" >> alembic.ini
-        echo "class=logging.StreamHandler" >> alembic.ini
-        echo "level=INFO" >> alembic.ini
-        echo "formatter=generic" >> alembic.ini
-        echo "args=(sys.stderr,)" >> alembic.ini
-        echo "" >> alembic.ini
-        echo "[formatter_generic]" >> alembic.ini
-        echo "format=%(asctime)s %(levelname)-5.5s %(name)-20s %(message)s" >> alembic.ini
+
 
 
     - name: Apply Alembic Migrations
