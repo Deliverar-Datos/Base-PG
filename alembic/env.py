@@ -29,9 +29,11 @@ def get_engine():
     db_pass = os.environ.get("DATABASE_PASSWORD")
     db_host = os.environ.get("DATABASE_HOST")
     db_name = os.environ.get("DATABASE_NAME")
-    db_port = os.environ.get("DATABASE_PORT", "5432") # Default to 5432 if not set
+ 
 
-    url = f"postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
+
+
+    url = f"postgresql://{db_user}:{db_pass}@{db_host}:5432/{db_name}" # Puerto '5432' directamente en la URL
     return create_engine(url)
 
 def run_migrations_offline():
