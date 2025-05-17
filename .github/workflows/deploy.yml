@@ -24,36 +24,33 @@ jobs:
 
     - name: Configure Alembic Environment
       run: |
-        cd alembic
-         cat > alembic.ini <<EOL
-        [alembic]
-        sqlalchemy.url = postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT}}/${{ secrets.DATABASE_NAME }}
-        script_location = .
+       cd alembic
+        echo "[alembic]" >> alembic.ini
+        echo "sqlalchemy.url = postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT}}/${{ secrets.DATABASE_NAME }}" >> alembic.ini
+        echo "script_location = ." >> alembic.ini
+        echo "" >> alembic.ini
+        echo "[loggers]" >> alembic.ini
+        echo "keys=root" >> alembic.ini
+        echo "" >> alembic.ini
+        echo "[handlers]" >> alembic.ini
+        echo "keys=console" >> alembic.ini
+        echo "" >> alembic.ini
+        echo "[formatters]" >> alembic.ini
+        echo "keys=generic" >> alembic.ini
+        echo "" >> alembic.ini
+        echo "[logger_root]" >> alembic.ini
+        echo "level=INFO" >> alembic.ini
+        echo "handlers=console" >> alembic.ini
+        echo "" >> alembic.ini
+        echo "[handler_console]" >> alembic.ini
+        echo "class=logging.StreamHandler" >> alembic.ini
+        echo "level=INFO" >> alembic.ini
+        echo "formatter=generic" >> alembic.ini
+        echo "args=(sys.stderr,)" >> alembic.ini
+        echo "" >> alembic.ini
+        echo "[formatter_generic]" >> alembic.ini
+        echo "format=%(asctime)s %(levelname)-5.5s %(name)-20s %(message)s" >> alembic.ini
 
-        [loggers]
-        keys=root
-
-        [handlers]
-        keys=console
-
-        [formatters]
-        keys=generic
-
-        [logger_root]
-        level=INFO
-        handlers=console
-
-        [handler_console]
-        class=logging.StreamHandler
-        level=INFO
-        formatter=generic
-        args=(sys.stderr,)
-
-        [formatter_generic]
-        format=%(asctime)s %(levelname)-5.5s %(name)-20s %(message)s
-        
-
-        cat > alembic.ini <<EOL
 
     - name: Apply Alembic Migrations
       run: |
