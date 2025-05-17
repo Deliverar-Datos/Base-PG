@@ -21,6 +21,13 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt # Asegúrate de tener sqlalchemy, alembic y psycopg2 en este archivo
+    - name: Debug Secrets (Temporary)
+      run: |
+        echo "DATABASE_USER: ${{ secrets.DATABASE_USER }}"
+        echo "DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}"
+        echo "DATABASE_HOST: ${{ secrets.DATABASE_HOST }}"
+        echo "DATABASE_PORT: ${{ secrets.DATABASE_PORT }}"
+        echo "DATABASE_NAME: ${{ secrets.DATABASE_NAME }}"
 
     - name: Configure Alembic Environment
       run: |
