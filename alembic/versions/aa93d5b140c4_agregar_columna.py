@@ -20,7 +20,6 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade():
     op.add_column('pruebas', sa.Column('nueva_columna', sa.String(50)))
-    op.add_column('pruebas', sa.Column('nueva_columna', sa.String(50)))
     pass
 
 def downgrade():
