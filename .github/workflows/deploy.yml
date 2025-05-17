@@ -1,4 +1,4 @@
-name: Deploy Database Changes 
+name: Deploy Database Changes (PostgreSQL with Alembic)
 
 on:
   push:
@@ -20,3 +20,15 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install -r requirements.txt # Asegúrate de tener sqlalchemy, alembic y psycopg2 en este archivo
+
+    - name: Configure Alembic Environment
+      run: |
+        cd alembic
+        echo "sqlalchemy.url = postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT:-5432 }}/${{ secrets.DATABASE_NAME }}" > alembic.ini
+
+    - name: Apply Alembic Migrations
+      run: |
+        cd alembic
+        alembic upgrade head # Aplica todas las migraciones pendientes
+
