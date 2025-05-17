@@ -11,9 +11,12 @@ config = context.config
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
-if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+#if config.config_file_name is not None:
+ #   fileConfig(config.config_file_name)
 
+
+import logging.config
+logging.config.fileConfig(config.config_file_name, disable_existing_loggers=False)
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
@@ -76,3 +79,4 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
+
