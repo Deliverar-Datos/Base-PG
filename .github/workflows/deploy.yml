@@ -26,7 +26,7 @@ jobs:
       run: |
        cd alembic
         echo "[alembic]" >> alembic.ini
-        echo "sqlalchemy.url = postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT}}/${{ secrets.DATABASE_NAME }}" >> alembic.ini
+        echo "sqlalchemy.url = postgresql://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT:5432}}/${{ secrets.DATABASE_NAME }}" >> alembic.ini
         echo "script_location = ." >> alembic.ini
         echo "" >> alembic.ini
         echo "[loggers]" >> alembic.ini
